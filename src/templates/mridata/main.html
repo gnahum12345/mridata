@@ -2,6 +2,7 @@
 {% load staticfiles %}
 
 {% block body_block %}
+
 <div class="col mb-4">
   <div class="container">
     <div class="alert alert-warning text-center mb-2">
@@ -12,14 +13,57 @@
 	Welcome to mridata.org!
       </h1>
     </div>
-    <div class="card-block">
-      <p class="card-text text-justify">
-	mridata.org is an open platform for researchers to share magnetic resonance imaging (MRI) raw k-space datasets. The website is designed to facilitate sharing MRI datasets from different vendors, with features including automatic ISMRMRD conversion, parameter extraction and thumbnail generation.
-	<br>
-	<br>
-	To start, you can browse projects contributed by users below. To view all available datasets, we refer you to our <a href="{% url 'data_list' %}">Data List</a>. After registering as a user, you can upload datasets from GE, Philips and Siemens. To know more about using the website, we refer you to our <a href="{% url 'faq' %}">FAQ</a>. To visit our old website, please visit <a href="http://old.mridata.org">old.mridata.org</a>.
-      </p>
-    </div>
+  </div>
+</div>
+<form method="get" enctype="multipart/form-data">
+ {% csrf_token %}
+
+  <div class="container">
+  	<div class="col">
+    	<div class="row" id="custom-search-input">
+      	<div class="input-group col-md-12">
+        	{{filter.form.search}}
+
+          <span class="input-group-btn">
+	          <a class="right collapsed" role="button" style="padding:10px"
+						data-tooltip="Advance Search" data-tooltip-pos="down"
+						onclick="showHideDiv('advanceSearchOff', 'inline');
+										 showHideDiv('advance_search', 'flex');">
+	          	<span class="if-collapsed" id="advanceSearchOff" style="display: inline">
+								<i class="down"></i>
+							</span>
+	          </a>
+	          <button data-tooltip="Search" data-tooltip-pos="down"
+						class="btn btn-lg" type="submit">
+							&#x1F50D
+						</button>
+						<button data-tooltip="Help" data-tooltip-pos="down"
+						class="btn btn-lg" onClick="showHideDiv('help_guide', 'flex')"
+						type="button">
+							&#10067
+						</button>
+       		</span>
+        </div>
+      </div>
+     </div>
+  </div>
+</form>
+
+<!-- The Help Guide Modal -->
+<div id="help_guide" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content">
+		<div class="modal-header">
+		 	<h3> CheatSheet </h3>
+			<span onclick="showHideDiv('help_guide', 'flex');"
+               class="close">&times;</span>
+	 	</div>
+	 	<div class="modal-body">
+		  {% include "mridata/cheatsheet.html" %}
+	 	</div>
+	 	<div class="modal-footer">
+      <button class="btn btn-info" onclick="showHideDiv('help_guide', 'flex');">Close</button>
+	 	</div>
   </div>
 </div>
 

@@ -1,4 +1,3 @@
-import logging
 import os
 import numpy as np
 import boto3
@@ -24,7 +23,12 @@ from taggit.models import Tag
 
 def main(request):
     projects = Project.objects.all().order_by('-name')
-    return render(request, 'mridata/main.html', {'projects': projects})
+    result = request.GET.get('search')
+    if (result):
+        return data_list(request);
+
+    filter = DataFilter(request.GET, Data.objects.all().order_by('-upload_date'))
+    return render(request, 'mridata/main.html', {'projects': projects, 'filter': filter})
 
 
 def about(request):
@@ -351,7 +355,6 @@ def tags(request):
         tags = tagRaw.split(',')
         for tag in tags:
             t = tag.strip()
-            logging.warning("ADDING TAG: {}".format(t))
             data.tags.add(t)
             data.save()
     return redirect("data_list")
@@ -359,8 +362,6 @@ def tags(request):
 
 def search_tag(request, tag):
     tag = [tag]
-    logging.warning("tag {}".format(tag))
-    logging.warning("request {}".format(request.GET))
     for val in request.GET.values():
         return data_list(request)
 
@@ -389,7 +390,6 @@ def search_tag(request, tag):
                   })
 
 def tag_delete(request, uuid, tag):
-    logging.warning("IM HERE")
     data = get_object_or_404(Data, uuid=uuid)
     data.tags.remove(tag)
     data.save()
