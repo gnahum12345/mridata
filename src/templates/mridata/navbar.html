@@ -26,7 +26,7 @@
           <a class="nav-link" href="{% url 'faq' %}">FAQ</a>
         </li>
         <!--TODO: Figure out how to add another item in the navigation bar.-->
-        {% if request.user.is_authenticated %}
+        {% if 0 and request.user.is_authenticated %}
         <li {% if "/api" in request.path %}
       	    class="nav-item active"
       	    {% else %}
@@ -81,20 +81,20 @@
         </li>
         {% endif %}
       </ul>
-      <ul class="nav navbar-nav navbar-right">
-	<li class="nav-item">
-	  <a href="http://www.berkeley.edu/">
-	    <img src={% static "images/berkeley.png" %} height="24"
-		 style="margin: 7px 7px 0px 0px">
-	  </a>
-	</li>
-	<li>
-	  <a href="http://www.stanford.edu/">
-	    <img src={% static "images/stanford.png" %} height="18"
-		 style="margin: 3px 0px 0px 0px">
-	  </a>
-	</li>
-      </ul>
+      <!-- <ul class="nav navbar-nav navbar-right"> -->
+      <!-- 	<li class="nav-item"> -->
+      <!-- 	  <a href="http://www.berkeley.edu/"> -->
+      <!-- 	    <img src={% static "images/berkeley.png" %} height="24" -->
+      <!-- 		 style="margin: 7px 7px 0px 0px"> -->
+      <!-- 	  </a> -->
+      <!-- 	</li> -->
+      <!-- 	<li> -->
+      <!-- 	  <a href="http://www.stanford.edu/"> -->
+      <!-- 	    <img src={% static "images/stanford.png" %} height="18" -->
+      <!-- 		 style="margin: 3px 0px 0px 0px"> -->
+      <!-- 	  </a> -->
+      <!-- 	</li> -->
+      <!-- </ul> -->
     </div>
   </div>
 </div>
